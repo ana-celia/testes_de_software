@@ -69,6 +69,7 @@ class TesteTrianguloEquilatero (unittest.TestCase):
 
     def test_c_diferente (self): #inválido valor de c
         a, b, c = 3, 3, 4
+        t = Triangulo(a, b, c)
         self.assertFalse(t.ehEquilatero())
 
 class TesteTrianguloIsosceles (unittest.TestCase):
