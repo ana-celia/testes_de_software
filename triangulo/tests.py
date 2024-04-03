@@ -1,6 +1,27 @@
 import unittest
 from modelo import Triangulo
 
+# Resposta a) Condições: 
+# 1- É triangulo: precisa ter três lados a, b, c em que o valor de cada lado deve ser menor que a soma dos outros 2 lados
+# 2- É equilátero: precisa ser triângulo + 3 lados iguais
+# 3- É isosceles: precisa ser triângulo + apenas 2 lados iguais
+# 4- É escaleno: precisa ser triângulo + todos os 3 lados diferentes
+# Respostas b) e c) Para cada condição, classes válidas e inválidas para cada entrada de a, b e de c, logo:
+# 1- É triangulo: 
+# válidos: entradas para cada lado que sejam valores positivos, diferentes de zero e menor que a soma dos outros dois lados; 
+# inválidos: valores negativos, iguais a zero e maiores ou iguais a soma dos outros dois lados.
+# 2- É equilátero: 
+# válidos: cada entrada precisa ser igual às outras duas; 
+# inválidos: qualquer entrada ser diferente das outras duas.
+# 3- É isosceles: 
+# válidos: testar se uma das entradas é diferente e as outras duas iguais; 
+# inválidos: testar se mais de uma entrada de lado é diferente e se é equilátero.
+# 4- É escaleno: 
+# válidos: ver se cada entrada é diferente da outra;
+# inválidos: checar se existem lados iguais.
+# d) ver no código
+
+
 #Inicialmente se certificar que é um triângulo
 class TrianguloTeste (unittest.TestCase):
    
