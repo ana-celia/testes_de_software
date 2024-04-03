@@ -31,42 +31,42 @@ class TrianguloTeste (unittest.TestCase):
         self.assertTrue(t.validarForma())
 
 #testar as classes inválidas que em que os valores de a, b, e c são maiores e/ou menores às condições válidas de triângulo em modelo.py
-    def test_todos_zeros_ou_menor (self): #inválidos valores = zero 
+    def test_todos_zeros (self): #inválidos valores = zero 
         a, b, c = 0, 0, 0
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
 
-    def test_todos_zeros (self): #inválidos valores negativos
+    def test_todos_menor (self): #inválidos valores negativos
         a, b, c = -5, -6, -7 
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
 
-    def test_a_igual (self): #inválidos valores de a=b+c
+    def test_a_igual_soma (self): #inválidos valores de a=b+c
         a, b, c = 7, 3, 4
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
     
-    def test_a_maior (self): #inválidos valores de a>b+c
+    def test_a_maior_soma (self): #inválidos valores de a>b+c
         a, b, c = 8, 3, 4
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
 
-    def test_b_igual (self): #inválidos valores de b=a+c
+    def test_b_igual_soma (self): #inválidos valores de b=a+c
         a, b, c = 3, 7, 4
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
       
-    def test_b_maior (self): #inválidos valores de b>a+c
+    def test_b_maior_soma (self): #inválidos valores de b>a+c
         a, b, c = 4, 8, 3
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
 
-    def test_c_igual (self): #inválidos valores de c=b+a
+    def test_c_igual_soma (self): #inválidos valores de c=b+a
         a, b, c = 3, 4, 7
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
 
-    def test_c_maior (self): #inválidos valores de c>b+a
+    def test_c_maior_soma (self): #inválidos valores de c>b+a
         a, b, c = 3, 4, 8
         t = Triangulo(a, b, c)
         self.assertFalse(t.validarForma())
