@@ -110,12 +110,12 @@ class TesteTrianguloEscaleno (unittest.TestCase): #válidos valores de a, b, c -
         t = Triangulo(a, b, c)
         self.assertFalse(t.ehEscaleno())
 
-   def test_ehEscaleno_AC (self):
+    def test_ehEscaleno_AC (self):
         a, b, c = 5, 6, 5   #inválidos valores de a e c
         t = Triangulo(a, b, c)
         self.assertFalse(t.ehEscaleno())
-   
-   def test_ehEscaleno_BC (self):
+       
+    def test_ehEscaleno_BC (self):
         a, b, c = 5, 6, 6   #inválidos valores de b e c
         t = Triangulo(a, b, c)
         self.assertFalse(t.ehEscaleno())
