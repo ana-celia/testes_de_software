@@ -1,63 +1,76 @@
 import unittest
-from modelo import calcular_desconto_dependente
+from desconto import calcular_desconto
 
-# Contrua uma função (em python) que realize o cálculo do desconto por dependente. A função
-# recebe um valor, e a idade do dependente. A idade do dependente deve estar restrita ao inter-
-# valo [0..24]. O valor mínimo da compra deve ser 250,00 reais. Para dependentes até 12 anos
-# (inclusive) o desconto é de 15%. Entre 13 e 18 (inclusive) o desconto é de 12%. Dos 19 aos 21
-# (inclusive) o desconto é de 5% e dos 22 aos 24 de 3%.
+class TestTriangulo(unittest.TestCase):
+  # Testa limite de valores de Valor para cálculo de desconto
+  def test_valor_invalido_limite_inferior(self):
+    self.assertEqual(calcular_desconto(249.99, 5), 0)
+  def test_valor_valido_limite_superior(self):
+    self.assertNotEqual(calcular_desconto(250, 5), 0)
+  def test_valor_valido_acima_limite_superior (self):
+    self.assertNotEqual(calcular_desconto(250.01, 5), 0)
 
-class TesteDescontoDependente(unittest.TestCase):
+  # Testa limite de valores de Idade inválidos para cálculo de desconto
+  def test_idade_invalida_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, -1), 0) 
+  def test_idade_invalida_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 25), 0)
 
-    def test_valor_compra_minimo(self):
-        with self.assertRaises(ValueError):
-            calcular_desconto_dependente(100, 10)
+  # Testa limite de valores de Idade entre 0 e 12 para cálculo de desconto
+  def test_faixa_idade_0_a_12_invalida_limite_inferior(self):
+    self.assertNotEqual(calcular_desconto(250, -1), 250*0.15)
+  def test_faixa_idade_0_a_12_valida_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 0), 250*0.15)
+  def test_faixa_idade_0_a_12_valida_acima_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 1), 250*0.15)
+  def test_faixa_idade_0_a_12_valida_abaixo_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 11), 250*0.15)
+  def test_faixa_idade_0_a_12_valida_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 12), 250*0.15)
+  def test_faixa_idade_0_a_12_invalida_acima_limite_superior(self):
+    self.assertNotEqual(calcular_desconto(250, 13), 250*0.15)
 
-    def test_idade_dependente_minima(self):
-        self.assertEqual(calcular_desconto_dependente(300, 0), 45)
+  # Testa limite de valores de Idade entre 13 e 18 para cálculo de desconto
+  def test_faixa_idade_13_a_18_invalida_limite_inferior(self):
+    self.assertNotEqual(calcular_desconto(250, 12), 250*0.12)
+  def test_faixa_idade_13_a_18_valida_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 13), 250*0.12)
+  def test_faixa_idade_13_a_18_valida_acima_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 14), 250*0.12)
+  def test_faixa_idade_13_a_18_valida_abaixo_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 17), 250*0.12)
+  def test_faixa_idade_13_a_18_valida_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 18), 250*0.12)
+  def test_faixa_idade_13_a_18_invalida_acima_limite_superior(self):
+    self.assertNotEqual(calcular_desconto(250, 19), 250*0.12)
 
-    def test_idade_dependente_maxima(self):
-        self.assertEqual(calcular_desconto_dependente(300, 24), 9)
+  # Testa limite de valores de Idade entre 19 e 21 para cálculo de desconto
+  def test_faixa_idade_19_a_21_invalida_limite_inferior(self):
+    self.assertNotEqual(calcular_desconto(250, 18), 250*0.05)
+  def test_faixa_idade_19_a_21_valida_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 19), 250*0.05)
+  def test_faixa_idade_19_a_21_valida_acima_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 20), 250*0.05)
+  def test_faixa_idade_19_a_21_valida_abaixo_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 20), 250*0.05)
+  def test_faixa_idade_19_a_21_valida_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 21), 250*0.05)
+  def test_faixa_idade_19_a_21_invalida_acima_limite_superior(self):
+    self.assertNotEqual(calcular_desconto(250, 22), 250*0.05)
 
-    def test_desconto_abaixo_limite_minimo_idade(self):
-        self.assertEqual(calcular_desconto_dependente(300, 0), 45)
-
-    def test_desconto_acima_limite_maximo_idade(self):
-        self.assertEqual(calcular_desconto_dependente(300, 25), 9)
-
-    def test_desconto_igual_limite_minimo_idade(self):
-        self.assertEqual(calcular_desconto_dependente(300, 1), 45)
-
-    def test_desconto_igual_limite_maximo_idade(self):
-        self.assertEqual(calcular_desconto_dependente(300, 24), 9)
-
-    def test_desconto_ate_12_anos(self):
-        self.assertEqual(calcular_desconto_dependente(300, 12), 45)
-
-    def test_desconto_13_a_18_anos(self):
-        self.assertEqual(calcular_desconto_dependente(300, 15), 36)
-
-    def test_desconto_19_a_21_anos(self):
-        self.assertEqual(calcular_desconto_dependente(300, 20), 15)
-
-    def test_desconto_22_a_24_anos(self):
-        self.assertEqual(calcular_desconto_dependente(300, 22), 9)
-
-    def test_valor_compra_igual_zero(self):
-        with self.assertRaises(ValueError):
-            calcular_desconto_dependente(0, 10)
-
-    def test_valor_compra_negativo(self):
-        with self.assertRaises(ValueError):
-            calcular_desconto_dependente(-100, 10)
-
-    def test_idade_dependente_igual_zero(self):
-        self.assertEqual(calcular_desconto_dependente(300, 0), 45)
-
-    def test_idade_dependente_negativa(self):
-        with self.assertRaises(ValueError):
-            calcular_desconto_dependente(300, -10)
-
+  # Testa limite de valores de Idade entre 22 e 24 para cálculo de desconto
+  def test_faixa_idade_22_a_24_invalida_limite_inferior(self):
+    self.assertNotEqual(calcular_desconto(250, 21), 250*0.03)
+  def test_faixa_idade_22_a_24_valida_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 22), 250*0.03)
+  def test_faixa_idade_22_a_24_valida_acima_limite_inferior(self):
+    self.assertEqual(calcular_desconto(250, 23), 250*0.03)
+  def test_faixa_idade_22_a_24_valida_abaixo_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 23), 250*0.03)
+  def test_faixa_idade_22_a_24_valida_limite_superior(self):
+    self.assertEqual(calcular_desconto(250, 24), 250*0.03)
+  def test_faixa_idade_22_a_24_invalida_acima_limite_superior(self):
+    self.assertNotEqual(calcular_desconto(250, 25), 250*0.03)
+    
 if __name__ == '__main__':
-    unittest.main()
-
+  unittest.main()
